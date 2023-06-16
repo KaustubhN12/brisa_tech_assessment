@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Octokit } from "octokit";
 import {useEffect} from 'react'
@@ -6,7 +5,7 @@ import {useEffect} from 'react'
 function App() {
 
   const octokit = new Octokit({
-    auth: "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"
+    auth: "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"
   });
 
  
