@@ -1,11 +1,15 @@
-import { useEffect } from "react";
-import Issues from "./Components/Issues";
+import Issues from './Components/Issues'
+import { Box } from "@chakra-ui/react";
+import OpenIssues from "./Pages/OpenIssues";
 
 function App() {
 
-  return <div>
-    <Issues/>
-  </div>;
+  return <Box backgroundColor={"#0d1117"} color={"#e6ede4"}>
+  <OpenIssues/>
+  <Issues/>
+  </Box>
+  
+
 }
 
 export default App;
