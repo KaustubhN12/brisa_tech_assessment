@@ -11,28 +11,34 @@ const IssueNav = () => {
         margin={"auto"}
         padding={"20px 20px"}
         backgroundColor={"#161b22"}
-        border={"1px solid white"}
+        border={"1px solid #2e343b"}
+        borderRadius={"10px 10px 0px 0px"}
       >
-        <Box width={"55%"} display={"flex"}>
+        <Box width={"55%"} display={"flex"} _hover={{ cursor: "pointer" }}>
           <Box display={"flex"}>
             <VscIssues size={25} />
             <Text fontWeight={"semibold"} marginLeft={"10px"}>
               993 Open
             </Text>
           </Box>
-          <Box display={"flex"} marginLeft={"10px"} className={"dullWhiteText"} _hover={{color:"white"}}>
+          <Box
+            display={"flex"}
+            marginLeft={"10px"}
+            className={"dullWhiteText"}
+            _hover={{ color: "white", cursor: "pointer" }}
+          >
             <VscCheck size={25} />
             <Text fontWeight={"semibold"} marginLeft={"10px"}>
               11,295 Closed
             </Text>
           </Box>
         </Box>
-        <Box display={"flex"} width={"45%"} justifyContent={"space-around"}>
+        <Box display={"flex"} width={"45%"} justifyContent={"space-between"}>
           <Box
             display={"flex"}
             alignItems={"center"}
             className={"dullWhiteText"}
-            _hover={{ color: "white" }}
+            _hover={{ color: "white", cursor: "pointer" }}
           >
             <Text fontWeight={"semibold"} marginRight={"5px"}>
               Author
@@ -42,7 +48,7 @@ const IssueNav = () => {
           <Box
             display={"flex"}
             alignItems={"center"}
-            _hover={{ color: "white" }}
+            _hover={{ color: "white", cursor: "pointer" }}
             className={"dullWhiteText"}
           >
             <Text fontWeight={"semibold"} marginRight={"5px"}>
@@ -54,7 +60,7 @@ const IssueNav = () => {
             display={"flex"}
             alignItems={"center"}
             className={"dullWhiteText"}
-            _hover={{ color: "white" }}
+            _hover={{ color: "white", cursor: "pointer" }}
           >
             <Text fontWeight={"semibold"} marginRight={"5px"}>
               Projects
@@ -65,7 +71,7 @@ const IssueNav = () => {
             display={"flex"}
             alignItems={"center"}
             className={"dullWhiteText"}
-            _hover={{ color: "white" }}
+            _hover={{ color: "white", cursor: "pointer" }}
           >
             <Text fontWeight={"semibold"} marginRight={"5px"}>
               Milestones
@@ -76,7 +82,7 @@ const IssueNav = () => {
             display={"flex"}
             alignItems={"center"}
             className={"dullWhiteText"}
-            _hover={{ color: "white" }}
+            _hover={{ color: "white", cursor: "pointer" }}
           >
             <Text fontWeight={"semibold"} marginRight={"5px"}>
               Assignee
@@ -87,7 +93,7 @@ const IssueNav = () => {
             display={"flex"}
             alignItems={"center"}
             className={"dullWhiteText"}
-            _hover={{ color: "white" }}
+            _hover={{ color: "white", cursor: "pointer" }}
           >
             <Text fontWeight={"semibold"} marginRight={"5px"}>
               Sort
