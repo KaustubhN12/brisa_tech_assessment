@@ -16,11 +16,12 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import { VscBlank, VscComment, VscIssues } from "react-icons/vsc";
 
 const Issues = () => {
-  const { isOpen, onToggle, onClose } = useDisclosure()
+  const { isOpen, onToggle, onClose } = useDisclosure();
   const [issue, setIssue] = useState([]);
 
   const octokit = new Octokit({
@@ -69,14 +70,43 @@ const Issues = () => {
                     <VscIssues size={25} color="#3FB950" />
                   </Box>
                   <Box marginLeft={"10px"} width={"80%"}>
-                    <Text
+                    {/* <Text
                       display={"inline"}
                       fontWeight={"semibold"}
                       fontSize={"xl"}
                       _hover={{ color: "#2E80F6" }}
                     >
                       {el.title}
-                    </Text>
+                    </Text> */}
+
+                    <Popover placement="top-start" trigger="hover">
+                      <PopoverTrigger>
+                        {/* <Button>Click me</Button> */}
+                        <Text
+                          display={"inline"}
+                          fontWeight={"semibold"}
+                          fontSize={"xl"}
+                          _hover={{ color: "#2E80F6" }}
+                          
+                        >
+                          {el.title}
+                        </Text>
+                        
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <PopoverHeader fontWeight="semibold">
+                          Popover placement
+                        </PopoverHeader>
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <PopoverBody>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore.
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
+
                     {el.labels &&
                       el.labels.map((item) => {
                         if (item.description) {
