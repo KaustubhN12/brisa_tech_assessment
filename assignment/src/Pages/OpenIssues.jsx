@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IssueNav from "../Components/IssueNav";
 import axios from "axios";
+import Issues from "../Components/Issues";
 
 const OpenIssues = () => {
   const [openIssue, setOpenIssue] = useState(0);
@@ -37,6 +38,7 @@ const OpenIssues = () => {
 
   return <div>
     <IssueNav/>
+    <Issues page={1} status = {"open"}/>
   </div>;
 };
 

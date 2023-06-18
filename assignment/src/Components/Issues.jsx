@@ -17,11 +17,11 @@ import {
   PopoverAnchor,
   useDisclosure,
   Button,
+  Avatar,
 } from "@chakra-ui/react";
 import { VscBlank, VscComment, VscIssues } from "react-icons/vsc";
 
-const Issues = () => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
+const Issues = ({ page, status }) => {
   const [issue, setIssue] = useState([]);
 
   const octokit = new Octokit({
@@ -31,7 +31,7 @@ const Issues = () => {
   const githubIssue = async () => {
     try {
       const result = await octokit.request(
-        "GET /repos/facebook/react/issues?page=1&per_page=45",
+        `GET /repos/facebook/react/issues?page=${page}&per_page=50`,
         {
           owner: "facebook",
           repo: "react",
@@ -47,6 +47,8 @@ const Issues = () => {
       );
     }
   };
+
+  console.log(page, status);
 
   useEffect(() => {
     githubIssue();
@@ -69,40 +71,125 @@ const Issues = () => {
                   <Box>
                     <VscIssues size={25} color="#3FB950" />
                   </Box>
-                  <Box marginLeft={"10px"} width={"80%"}>
-                    {/* <Text
-                      display={"inline"}
-                      fontWeight={"semibold"}
-                      fontSize={"xl"}
-                      _hover={{ color: "#2E80F6" }}
-                    >
-                      {el.title}
-                    </Text> */}
-
-                    <Popover placement="top-start" trigger="hover">
+                  <Box marginLeft={"10px"} width={"87%"}>
+                    <Popover placement="top-end" trigger="hover" >
                       <PopoverTrigger>
-                        {/* <Button>Click me</Button> */}
                         <Text
                           display={"inline"}
                           fontWeight={"semibold"}
                           fontSize={"xl"}
                           _hover={{ color: "#2E80F6" }}
-                          
                         >
                           {el.title}
                         </Text>
-                        
                       </PopoverTrigger>
-                      <PopoverContent>
-                        <PopoverHeader fontWeight="semibold">
-                          Popover placement
+                      <PopoverContent
+                        backgroundColor={"#161b22"}
+                        border={"none"}
+                      >
+                        <PopoverHeader border={"none"}>
+                          <Link
+                            textDecoration={"underline"}
+                            href={el.repository_url}
+                            color={"#7D8590"}
+                          >
+                            {el.repository_url.split("/")[4] +
+                              "/" +
+                              el.repository_url.split("/")[5] +
+                              " "}
+                          </Link>
+                          <Text display={"inline"} color={"#7D8590"}>
+                            {"on" +
+                              " " +
+                              Date(el.updated_at).toString().split(" ")[1] +
+                              " " +
+                              Date(el.updated_at).toString().split(" ")[2] +
+                              ", " +
+                              Date(el.updated_at).toString().split(" ")[3]}
+                          </Text>
                         </PopoverHeader>
-                        <PopoverArrow />
-                        <PopoverCloseButton />
+                        <PopoverArrow backgroundColor={"#161b22"} />
                         <PopoverBody>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore.
+                          <Flex>
+                            <Box marginTop={"3px"}>
+                              <VscIssues size={25} color="#3FB950" />
+                            </Box>
+                            <Box width={"270px"} marginLeft={"5px"}>
+                              <Text
+                                display={"inline"}
+                                fontWeight={"semibold"}
+                                fontSize={"md"}
+                                _hover={{ color: "#2E80F6" }}
+                              >
+                                {el.title + " "}
+                              </Text>
+                              <Text
+                                display={"inline"}
+                                color={"#7D8590"}
+                                marginBottom={"5px"}
+                              >
+                                #{el.number}
+                              </Text>
+                              <Text noOfLines={2} color={"#7D8590"}>
+                                {el.body}
+                              </Text>
+                              <Box marginTop={"5px"} marginBottom={"5px"}>
+                                {/* inside hover labels */}
+                                {el.labels &&
+                                  el.labels.map((item) => {
+                                    if (item.description) {
+                                      return (
+                                        <Tooltip
+                                          label={item.description}
+                                          hasArrow
+                                          arrowSize={15}
+                                          p={2}
+                                          textAlign={"center"}
+                                          backgroundColor={"#6E7681"}
+                                          borderRadius={"10px"}
+                                        >
+                                          <Box
+                                            display={"inline"}
+                                            marginLeft={"5px"}
+                                            borderRadius={"10px"}
+                                            border={`1px solid`}
+                                            color={"#" + item.color}
+                                            padding={"0px 10px 2px 10px"}
+                                            margin={"5px"}
+                                          >
+                                            <Text
+                                              display={"inline"}
+                                              fontWeight={"semibold"}
+                                            >
+                                              {item.name}
+                                            </Text>
+                                          </Box>
+                                        </Tooltip>
+                                      );
+                                    } else {
+                                      return (
+                                        <Box
+                                          display={"inline"}
+                                          marginLeft={"5px"}
+                                          borderRadius={"10px"}
+                                          border={`1px solid`}
+                                          color={"#" + item.color}
+                                          padding={"0px 10px 2px 10px"}
+                                          margin={"5px"}
+                                        >
+                                          <Text
+                                            display={"inline"}
+                                            fontWeight={"semibold"}
+                                          >
+                                            {item.name}
+                                          </Text>
+                                        </Box>
+                                      );
+                                    }
+                                  })}
+                              </Box>
+                            </Box>
+                          </Flex>
                         </PopoverBody>
                       </PopoverContent>
                     </Popover>
@@ -118,6 +205,7 @@ const Issues = () => {
                               p={2}
                               textAlign={"center"}
                               backgroundColor={"#6E7681"}
+                              borderRadius={"10px"}
                             >
                               <Box
                                 display={"inline"}
@@ -153,6 +241,25 @@ const Issues = () => {
                           );
                         }
                       })}
+                  </Box>
+                  <Box marginLeft={"5px"}>
+                    {el.assignee && (
+                      <Tooltip
+                        label={`Assigned to ${el.assignee.login}`}
+                        hasArrow
+                        arrowSize={15}
+                        p={2}
+                        textAlign={"center"}
+                        backgroundColor={"#6E7681"}
+                        borderRadius={"10px"}
+                      >
+                        <Avatar
+                          name="Dan Abrahmov"
+                          size="xs"
+                          src={el.assignee.avatar_url}
+                        />
+                      </Tooltip>
+                    )}
                   </Box>
                   {el.comments > 0 && (
                     <Box

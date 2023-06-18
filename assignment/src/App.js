@@ -1,4 +1,3 @@
-import Issues from "./Components/Issues";
 import { Box } from "@chakra-ui/react";
 import OpenIssues from "./Pages/OpenIssues";
 
@@ -10,7 +9,6 @@ function App() {
     color={"white"}
     >
       <OpenIssues />
-      <Issues />
     </Box>
   );
 }
