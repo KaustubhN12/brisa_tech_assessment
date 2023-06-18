@@ -3,8 +3,9 @@ import React from "react";
 import { VscIssues, VscCheck, VscTriangleDown } from "react-icons/vsc";
 import "../Styles/IssueNav.css";
 import axios from "axios";
+import { BiCheck } from "react-icons/bi";
 
-const IssueNav = () => {
+const IssueNav = ({openIssue,closedIssue}) => {
   const getOpenIssuesCount = async () => {
     const openIssue = await axios.get(
       "https://api.github.com/search/issues?q=repo:facebook/react+type:issue+state:open",
@@ -30,7 +31,7 @@ const IssueNav = () => {
           <Box display={"flex"}>
             <VscIssues size={25} />
             <Text fontWeight={"semibold"} marginLeft={"10px"}>
-              993 Open
+              {openIssue} Open
             </Text>
           </Box>
           <Box
@@ -39,9 +40,9 @@ const IssueNav = () => {
             className={"dullWhiteText"}
             _hover={{ color: "white", cursor: "pointer" }}
           >
-            <VscCheck size={25} />
+            <BiCheck size={25} />
             <Text fontWeight={"semibold"} marginLeft={"10px"}>
-              11,295 Closed
+              {closedIssue} Closed
             </Text>
           </Box>
         </Box>

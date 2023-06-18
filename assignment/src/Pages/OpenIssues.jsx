@@ -37,7 +37,7 @@ const OpenIssues = () => {
   console.log(openIssue,closedIssue)
 
   return <div>
-    <IssueNav/>
+    <IssueNav openIssue={openIssue} closedIssue={closedIssue}/>
     <Issues/>
   </div>;
 };

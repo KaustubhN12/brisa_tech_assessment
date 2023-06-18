@@ -65,6 +65,10 @@ const Issues = () => {
   const handlePageChange = (newPageNumber) => {
     setActivePAge(newPageNumber);
     githubIssue();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
