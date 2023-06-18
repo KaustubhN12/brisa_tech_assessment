@@ -173,7 +173,6 @@ const Issues = () => {
                                             borderRadius={"10px"}
                                           >
                                             <Box
-                                              display={"inline"}
                                               marginLeft={"5px"}
                                               borderRadius={"10px"}
                                               border={`1px solid`}
@@ -193,7 +192,6 @@ const Issues = () => {
                                       } else {
                                         return (
                                           <Box
-                                            display={"inline"}
                                             marginLeft={"5px"}
                                             borderRadius={"10px"}
                                             border={`1px solid`}
@@ -232,7 +230,7 @@ const Issues = () => {
                                 borderRadius={"10px"}
                               >
                                 <Box
-                                  display={"inline"}
+                                  display={["none","none","inline"]}
                                   marginLeft={"5px"}
                                   borderRadius={"10px"}
                                   border={`1px solid`}
@@ -251,7 +249,7 @@ const Issues = () => {
                           } else {
                             return (
                               <Box
-                                display={"inline"}
+                              display={["none","none","inline"]}
                                 marginLeft={"5px"}
                                 borderRadius={"10px"}
                                 border={`1px solid`}
@@ -289,7 +287,7 @@ const Issues = () => {
                         display={"flex"}
                         alignItems={"center"}
                         position={"absolute"}
-                        right={"60px"}
+                        right={["15px","25px","60px"]}
                         color={"#7D8590"}
                         _hover={{ color: "#2E80F6" }}
                       >
@@ -378,7 +376,7 @@ const Issues = () => {
           })}
       </Box>
       {/* pagination */}
-      <Box width={"45%"} margin={"auto"}>
+      <Box width={["100%","90%","45%"]} margin={"auto"}>
         <Pagination
           TotalIssues={openIssue}
           IssuesPerPage={IssuePerPage}

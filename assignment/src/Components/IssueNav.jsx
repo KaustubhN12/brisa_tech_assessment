@@ -46,7 +46,7 @@ const IssueNav = ({openIssue,closedIssue}) => {
             </Text>
           </Box>
         </Box>
-        <Box display={"flex"} width={"45%"} justifyContent={"space-between"}>
+        <Box display={["none","none","flex"]} width={"45%"} justifyContent={"space-between"}>
           <Box
             display={"flex"}
             alignItems={"center"}
