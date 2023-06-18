@@ -11,11 +11,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-  useDisclosure,
   Button,
   Avatar,
 } from "@chakra-ui/react";
@@ -72,7 +68,7 @@ const Issues = ({ page, status }) => {
                     <VscIssues size={25} color="#3FB950" />
                   </Box>
                   <Box marginLeft={"10px"} width={"87%"}>
-                    <Popover placement="top-end" trigger="hover" >
+                    <Popover placement="top-end" trigger="hover">
                       <PopoverTrigger>
                         <Text
                           display={"inline"}
@@ -253,11 +249,7 @@ const Issues = ({ page, status }) => {
                         backgroundColor={"#6E7681"}
                         borderRadius={"10px"}
                       >
-                        <Avatar
-                          name="Dan Abrahmov"
-                          size="xs"
-                          src={el.assignee.avatar_url}
-                        />
+                        <Avatar size="xs" src={el.assignee.avatar_url} />
                       </Tooltip>
                     )}
                   </Box>
@@ -283,13 +275,57 @@ const Issues = ({ page, status }) => {
                   <VscBlank size={25} />
                   <Text marginLeft={"10px"} fontSize={"sm"} color={"#7D8590"}>
                     #{el.number} opened {el.updated_at} by{" "}
-                    <Link
-                      href={`https://github.com/facebook/react/issues/created_by/${el.user.login}`}
-                      textDecoration={"none"}
-                      _hover={{ color: "#2E80F6" }}
-                    >
-                      {el.user.login}
-                    </Link>
+                    <Popover placement="top-start" trigger="hover">
+                      <PopoverTrigger>
+                        <Link
+                          href={`https://github.com/facebook/react/issues/created_by/${el.user.login}`}
+                          textDecoration={"none"}
+                          _hover={{ color: "#2E80F6" }}
+                        >
+                          {el.user.login}
+                        </Link>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        backgroundColor={"#161b22"}
+                        border={"none"}
+                      >
+                        <PopoverArrow backgroundColor={"#161b22"} />
+                        <PopoverBody>
+                          <Flex
+                            justifyContent={"space-between"}
+                            width={"90%"}
+                            margin={"auto"}
+                            marginBottom={"20px"}
+                            marginTop={"20px"}
+                          >
+                            <Box>
+                              {el.user && (
+                                <Avatar
+                                  size="lg"
+                                  src={el.user.avatar_url}
+                                  marginBottom={"15px"}
+                                />
+                              )}
+                              <Text fontSize={"lg"} color={"white"}>
+                                {el.user.login}
+                              </Text>
+                            </Box>
+                            <Box>
+                              <Button
+                                backgroundColor={"#21262D"}
+                                color={"#C9D1D9"}
+                                _hover={{
+                                  backgroundColor: "#30363D",
+                                  border: "1px solid",
+                                }}
+                              >
+                                Follow
+                              </Button>
+                            </Box>
+                          </Flex>
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
                   </Text>
                 </Box>
               </Box>
