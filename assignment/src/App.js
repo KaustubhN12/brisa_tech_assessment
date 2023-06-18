@@ -6,7 +6,7 @@ function App() {
     <Box 
     backgroundColor={"#0d1117"} 
     color={"white"}
-    paddingTop={"50px"}
+    paddingTop={["10px","10px","50px"]}
     paddingBottom={"50px"}
     >
       <OpenIssues />
