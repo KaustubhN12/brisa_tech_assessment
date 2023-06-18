@@ -5,8 +5,9 @@ function App() {
   return (
     <Box 
     backgroundColor={"#0d1117"} 
-    // color={"#e6ede4"}
     color={"white"}
+    paddingTop={"50px"}
+    paddingBottom={"50px"}
     >
       <OpenIssues />
     </Box>

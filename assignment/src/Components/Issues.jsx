@@ -16,10 +16,15 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import { VscBlank, VscComment, VscIssues } from "react-icons/vsc";
+import Pagination from "./Pagination";
+import axios from "axios";
 
-const Issues = ({ page, status }) => {
+const Issues = () => {
   const [issue, setIssue] = useState([]);
-
+  const [openIssue, setOpenIssue] = useState(0);
+  const [activePage, setActivePAge] = useState(1);
+  // const [page,setPage] = useState(1);
+console.log(activePage)
   const octokit = new Octokit({
     auth: process.env.REACT_APP_GIT_OUTH_TOKEN,
   });
@@ -27,7 +32,7 @@ const Issues = ({ page, status }) => {
   const githubIssue = async () => {
     try {
       const result = await octokit.request(
-        `GET /repos/facebook/react/issues?page=${page}&per_page=50`,
+        `GET /repos/facebook/react/issues?page=${activePage}&per_page=35`,
         {
           owner: "facebook",
           repo: "react",
@@ -44,17 +49,35 @@ const Issues = ({ page, status }) => {
     }
   };
 
-  console.log(page, status);
+  const getOpenIssuesCount = async () => {
+    const openIssue = await axios.get(
+      "https://api.github.com/repos/facebook/react",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_GIT_OUTH_TOKEN}`,
+        },
+      }
+    );
+    console.log(openIssue.data.open_issues);
+    setOpenIssue(openIssue.data.open_issues);
+  };
+
+  const handlePageChange = (newPageNumber) => {
+      setActivePAge(newPageNumber);
+      githubIssue();
+  }
 
   useEffect(() => {
     githubIssue();
-  }, []);
+    getOpenIssuesCount();
+    document.title = "Issues";
+  }, [activePage]);
 
   return (
     <Box>
       {issue &&
         issue.map((el) => {
-          if (el.node_id[0] == "I") {
+          if (el.node_id[0] == "I" || el.node_id[0] == "M") {
             return (
               <Box
                 width={"95%"}
@@ -274,7 +297,20 @@ const Issues = ({ page, status }) => {
                 <Box display={"flex"}>
                   <VscBlank size={25} />
                   <Text marginLeft={"10px"} fontSize={"sm"} color={"#7D8590"}>
-                    #{el.number} opened {el.updated_at} by{" "}
+                    #{el.number} opened{" "}
+                    {((daysAgo) =>
+                      daysAgo === 0
+                        ? "Today"
+                        : daysAgo == 1
+                        ? "1 day ago"
+                        : daysAgo + " days ago")(
+                      Math.floor(
+                        (new Date() -
+                          new Date(el.updated_at).setHours(0, 0, 0, 0)) /
+                          (1000 * 60 * 60 * 24)
+                      )
+                    )}{" "}
+                    by{" "}
                     <Popover placement="top-start" trigger="hover">
                       <PopoverTrigger>
                         <Link
@@ -332,6 +368,15 @@ const Issues = ({ page, status }) => {
             );
           }
         })}
+
+      {/* pagination */}
+
+      <Pagination
+        TotalIssues={openIssue}
+        IssuesPerPage={35}
+        ActivePage={activePage}
+        handlePageChange = {handlePageChange}
+      />
     </Box>
   );
 };

@@ -2,8 +2,20 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { VscIssues, VscCheck, VscTriangleDown } from "react-icons/vsc";
 import "../Styles/IssueNav.css";
+import axios from "axios";
 
 const IssueNav = () => {
+  const getOpenIssuesCount = async () => {
+    const openIssue = await axios.get(
+      "https://api.github.com/search/issues?q=repo:facebook/react+type:issue+state:open",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_GIT_OUTH_TOKEN}`,
+        },
+      }
+    );
+    console.log(openIssue.data.total_count);
+  };
   return (
     <Box>
       <Flex

@@ -38,7 +38,7 @@ const OpenIssues = () => {
 
   return <div>
     <IssueNav/>
-    <Issues page={1} status = {"open"}/>
+    <Issues/>
   </div>;
 };
 
