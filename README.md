@@ -1,6 +1,6 @@
 # Getting Started with `Github Issue Page`
 
-`Deployed Link` for the  project:- https://github-issues-iota.vercel.app/
+Deployed Link for the  project:- ``https://github-issues-iota.vercel.app/``
 
 ## Available Scripts
 
