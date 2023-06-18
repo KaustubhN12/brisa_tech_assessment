@@ -1,7 +1,6 @@
 # Getting Started with `Github Issue Page`
 
-This project is live at:- https://github-issues-iota.vercel.app/
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+`Deployed Link` for the  project:- https://github-issues-iota.vercel.app/
 
 ## Available Scripts
 
