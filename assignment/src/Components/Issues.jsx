@@ -14,6 +14,7 @@ import {
   PopoverArrow,
   Button,
   Avatar,
+  Spinner,
 } from "@chakra-ui/react";
 import { VscBlank, VscComment, VscIssues } from "react-icons/vsc";
 import Pagination from "./Pagination";
@@ -24,7 +25,6 @@ const Issues = () => {
   const [openIssue, setOpenIssue] = useState(0);
   const [activePage, setActivePAge] = useState(1);
   const IssuePerPage = 35;
-  console.log(activePage);
   const octokit = new Octokit({
     auth: process.env.REACT_APP_GIT_OUTH_TOKEN,
   });
@@ -40,7 +40,6 @@ const Issues = () => {
       );
 
       const titleAndAuthor = result.data;
-      console.log(titleAndAuthor);
       setIssue(titleAndAuthor);
     } catch (error) {
       console.log(
@@ -58,7 +57,7 @@ const Issues = () => {
         },
       }
     );
-    console.log(openIssue.data.open_issues);
+    // console.log(openIssue.data.open_issues);
     setOpenIssue(openIssue.data.open_issues);
   };
 
@@ -80,6 +79,24 @@ const Issues = () => {
   return (
     <Box>
       <Box marginBottom={"20px"}>
+        {issue.length == 0 && (
+          <Box
+            height={"100vh"}
+            backgroundColor={"#0d1117"}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Box>
+              <Spinner
+                thickness="3px"
+                speed="0.65s"
+                emptyColor="gray.300"
+                size="xl"
+              />
+            </Box>
+          </Box>
+        )}
         {issue &&
           issue.map((el) => {
             if (el.node_id[0] == "I" || el.node_id[0] == "M") {
@@ -230,7 +247,7 @@ const Issues = () => {
                                 borderRadius={"10px"}
                               >
                                 <Box
-                                  display={["none","none","inline"]}
+                                  display={["none", "none", "inline"]}
                                   marginLeft={"5px"}
                                   borderRadius={"10px"}
                                   border={`1px solid`}
@@ -249,7 +266,7 @@ const Issues = () => {
                           } else {
                             return (
                               <Box
-                              display={["none","none","inline"]}
+                                display={["none", "none", "inline"]}
                                 marginLeft={"5px"}
                                 borderRadius={"10px"}
                                 border={`1px solid`}
@@ -287,7 +304,7 @@ const Issues = () => {
                         display={"flex"}
                         alignItems={"center"}
                         position={"absolute"}
-                        right={["15px","25px","60px"]}
+                        right={["15px", "25px", "60px"]}
                         color={"#7D8590"}
                         _hover={{ color: "#2E80F6" }}
                       >
@@ -376,7 +393,7 @@ const Issues = () => {
           })}
       </Box>
       {/* pagination */}
-      <Box width={["100%","90%","45%"]} margin={"auto"}>
+      <Box width={["100%", "90%", "45%"]} margin={"auto"}>
         <Pagination
           TotalIssues={openIssue}
           IssuesPerPage={IssuePerPage}

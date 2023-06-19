@@ -16,7 +16,6 @@ const OpenIssues = () => {
         },
       }
     );
-    // console.log(openIssue.data.total_count);
     setOpenIssue(openIssue.data.total_count);
 
     const closedIssue = await axios.get(
@@ -27,19 +26,20 @@ const OpenIssues = () => {
         },
       }
     );
-    // console.log(closedIssue.data.total_count);
     setClosedIssue(closedIssue.data.total_count);
   };
   useEffect(() => {
     getOpenAndClosedIssuesCount();
   }, []);
 
-  console.log(openIssue,closedIssue)
+  // console.log(openIssue,closedIssue)
 
-  return <div>
-    <IssueNav openIssue={openIssue} closedIssue={closedIssue}/>
-    <Issues/>
-  </div>;
+  return (
+    <div>
+      <IssueNav openIssue={openIssue} closedIssue={closedIssue} />
+      <Issues />
+    </div>
+  );
 };
 
 export default OpenIssues;

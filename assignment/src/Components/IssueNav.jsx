@@ -5,18 +5,7 @@ import "../Styles/IssueNav.css";
 import axios from "axios";
 import { BiCheck } from "react-icons/bi";
 
-const IssueNav = ({openIssue,closedIssue}) => {
-  const getOpenIssuesCount = async () => {
-    const openIssue = await axios.get(
-      "https://api.github.com/search/issues?q=repo:facebook/react+type:issue+state:open",
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_GIT_OUTH_TOKEN}`,
-        },
-      }
-    );
-    console.log(openIssue.data.total_count);
-  };
+const IssueNav = ({ openIssue, closedIssue }) => {
   return (
     <Box>
       <Flex
@@ -46,7 +35,11 @@ const IssueNav = ({openIssue,closedIssue}) => {
             </Text>
           </Box>
         </Box>
-        <Box display={["none","none","flex"]} width={"45%"} justifyContent={"space-between"}>
+        <Box
+          display={["none", "none", "flex"]}
+          width={"45%"}
+          justifyContent={"space-between"}
+        >
           <Box
             display={"flex"}
             alignItems={"center"}
